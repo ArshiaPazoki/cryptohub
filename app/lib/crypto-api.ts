@@ -10,6 +10,13 @@ export interface CryptoData {
   market_cap: number;
   total_volume: number;
   image: string;
+  high_24h?: number;
+  low_24h?: number;
+  ath?: number;
+  ath_change_percentage?: number;
+  atl?: number;
+  atl_change_percentage?: number;
+  circulating_supply?: number;
 }
 
 export interface GlobalStats {
@@ -38,4 +45,13 @@ export async function fetchGlobalStats(): Promise<GlobalStats> {
     total_volume: data.data.total_volume.usd,
     market_cap_change_percentage_24h: data.data.market_cap_change_percentage_24h_usd
   };
+}
+
+export async function fetchCryptoHistory(id: string, days: number = 7) {
+  const response = await fetch(
+    `${COINGECKO_API}/coins/${id}/market_chart?vs_currency=usd&days=${days}`
+  );
+  
+  if (!response.ok) throw new Error('Failed to fetch crypto history');
+  return response.json();
 }

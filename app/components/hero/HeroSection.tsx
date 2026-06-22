@@ -11,7 +11,7 @@ import {
   TrendingUp, 
   Shield, 
   Zap, 
-  Coins,
+  // Coins,
   Activity,
   DollarSign,
   Globe,
